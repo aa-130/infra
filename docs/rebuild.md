@@ -1,6 +1,6 @@
 The rebuild process is:
 
-`
+
 1. Install Ubuntu WSL
 2. Clone infra
 3. Run workstation.yml
@@ -8,4 +8,3 @@ The rebuild process is:
 5. terraform apply
 6. ArgoCD syncs gitops
 7. Application appears
-`
