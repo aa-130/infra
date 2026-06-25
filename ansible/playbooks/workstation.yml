@@ -1,0 +1,9 @@
+---
+- hosts: local
+  become: true
+
+  roles:
+    - docker
+    - kubectl
+    - helm
+    - k3d

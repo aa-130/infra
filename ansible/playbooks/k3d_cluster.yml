@@ -1,0 +1,17 @@
+---
+- hosts: local
+  connection: local
+
+  tasks:
+
+    - name: Create cluster
+      command: >
+        k3d cluster create cluster
+        --agents 2
+        -p 80:80@loadbalancer
+        -p 443:443@loadbalancer
+      register: cluster_create
+      failed_when: false
+
+    - debug:
+        var: cluster_create.stdout
