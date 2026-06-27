@@ -1,0 +1,3 @@
+---
+- import_playbook: playbooks/workstation.yml
+- import_playbook: playbooks/cluster.yml

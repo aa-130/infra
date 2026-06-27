@@ -1,9 +1,20 @@
 ---
-- hosts: local
-  become: true
+- name: Configure workstation
+  hosts: local
+  gather_facts: true
 
   roles:
-    - docker
-    - kubectl
-    - helm
-    - k3d
+    # User configuration
+    #- ssh
+    - git
+    #- shell
+    #- vim
+
+    # System configuration
+    - sudo
+    - common
+    #- docker
+    #- kubectl
+    #- helm
+    #- terraform
+    #- k3d

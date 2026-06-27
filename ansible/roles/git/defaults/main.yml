@@ -1,0 +1,8 @@
+---
+git_user_name: "aa-130"
+git_user_email: "aa-130@localhost"
+
+git_default_branch: main
+git_pull_rebase: false
+git_fetch_prune: true
+git_editor: vim
