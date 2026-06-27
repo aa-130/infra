@@ -1,0 +1,44 @@
+---
+- name: Ensure ~/.ssh exists
+  file:
+    path: "{{ ansible_facts.user_dir }}/.ssh"
+    state: directory
+    mode: "0700"
+
+- name: Check if SSH key already exists
+  stat:
+    path: "{{ ansible_facts.user_dir }}/.ssh/id_ed25519"
+  register: ssh_key
+
+- name: Generate SSH key
+  command: >
+    ssh-keygen
+    -t ed25519
+    -f {{ ansible_facts.user_dir }}/.ssh/id_ed25519
+    -N ""
+  when: not ssh_key.stat.exists
+  register: keygen
+
+- name: Set private key permissions
+  file:
+    path: "{{ ansible_facts.user_dir }}/.ssh/id_ed25519"
+    mode: "0600"
+
+- name: Set public key permissions
+  file:
+    path: "{{ ansible_facts.user_dir }}/.ssh/id_ed25519.pub"
+    mode: "0644"
+
+- name: Read public key
+  slurp:
+    src: "{{ ansible_facts.user_dir }}/.ssh/id_ed25519.pub"
+  register: public_key
+  when: keygen.changed
+
+- name: Display public key
+  debug:
+    msg:
+      - "SSH key generated successfully."
+      - "Add the following public key to GitHub:"
+      - "{{ public_key.content | b64decode | trim }}"
+  when: keygen.changed

@@ -5,8 +5,8 @@
 
   roles:
     # User configuration
-    #- ssh
     - git
+    - ssh
     #- shell
     #- vim
 
